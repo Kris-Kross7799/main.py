@@ -1,6 +1,6 @@
-name='Example'
-print(name[0])
-print(name[-1])
-print(name[2:])
-print(name[::-1])
-print(name[::2])
+example="Престидижитация"
+print(example[0])
+print(example[-1])
+print(example[8:])
+print(example[::-1])
+print(example[::2])
