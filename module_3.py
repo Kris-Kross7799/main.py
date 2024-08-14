@@ -1,30 +1,23 @@
-# # a=6
-# # b=12
-# # print(a, b)
-# # def printer():
-# #     c=10
-# #     d=15
-# #     global a,b
-# #     a='str'
-# #     b='str_2'
-# #     print('local', c,d)
-
 calls = 0
 
 
-def string_info(string):
+def count_calls(f):
     global calls
+    calls += 1
+    return calls
+
+
+def string_info(string):
+    count_calls(1)
     length = len(string)
     big = string.upper()
     small = string.lower()
     t = (length, big, small)
-    calls += 1
     return t
 
 
 def is_contains(string, list_to_search):
-    global calls
-    calls += 1
+    count_calls(1)
     string_2 = string.lower()
     c = 0
     for i in range(len(list_to_search)):
@@ -36,13 +29,12 @@ def is_contains(string, list_to_search):
         return True
     else:
         return False
-    print(b)
 
 
 print(string_info('capyBARA'))
 print(string_info('ChuPaCaBRa'))
+print(string_info('ChuPa'))
 print(is_contains('more', ['a', 'moreMa', 'Moe', 'mArE']))
 print(is_contains('mARe', ['a', 'moreMa', 'Moe', 'mArE']))
-
 
 print(calls)
