@@ -1,13 +1,33 @@
+# clasself=None#     head = True
+#     _legs=True
+#     __arms=True
+#     def say_hello(self):
+#         print('Здравствуйте!')
+#
+#     def about(self):
+#         print(self.head)
+#         print(self._legs)
+#         print(self.__arms)
+#
+# class Student(Human):
+#     # def about(self):
+#     #     print("Я - студент")
+#     pass
+#
+# human=Human()
+# student=Student()
+# human.about()
+# student.about()
 
 
 class Vehicle:
-    __color_variants = ['blue', 'black', 'серебристый', 'белый', 'зелёный']
+    __COLOR_VARIANTS = ['blue', 'black', 'серебристый', 'белый', 'зелёный']
 
-    def __init__(self, owner: str, __model: str, __color: str, __engine_power: int):
+    def __init__(self, owner: str, model: str, color: str, engine_power: int):
         self.owner = owner
-        self.__model = __model
-        self.__engine_power = __engine_power
-        self.__color = __color
+        self.__model = model
+        self.__engine_power = engine_power
+        self.__color = color
 
     def get_model(self):
         return (f"Модель: {self.__model}")
@@ -26,12 +46,15 @@ class Vehicle:
 
     def set_color(self, new_color: str):
         new_color = new_color.lower()
-        __color_variants=[i.lower() for i in self.__color_variants]
-        if new_color in __color_variants:
-            self.__color = new_color
-            return new_color
-        else:
-            print(f"Нельзя сменить цвет на {new_color}")
+        # __color_variants=[i.lower() for i in self.__color_variants]
+        for i in self.__COLOR_VARIANTS:
+            i=i.lower()
+            if new_color in self.__COLOR_VARIANTS:
+                self.__color = new_color
+                return new_color
+            else:
+                print(f"Нельзя сменить цвет на {new_color}")
+                return
 
 
 class Sedan(Vehicle):
