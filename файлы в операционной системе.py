@@ -1,16 +1,14 @@
 import os
 from datetime import datetime
 
-
 directory='.'
+# abs_path=os.path.abspath("test_file.txt")
+# print("абсолютный путь: ", abs_path)
 for root,dirs,files in os.walk(directory):
     for file in files:
         file="test_file.txt"
-        path1=directory
-        # print("путь1: ", path1)
-        path2=file
-        # print("путь2: ", path2)
-        filepath=os.path.join(path1,path2)
+        root=os.path.dirname(os.path.abspath(file))
+        filepath=os.path.join(root,file)
         # print("Полный путь к файлу: ", filepath)
         filetime=datetime.fromtimestamp(os.path.getmtime(file))
         # filetime=datetime.fromtimestamp(filetime_0)
