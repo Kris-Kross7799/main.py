@@ -1,24 +1,3 @@
-
-# def f1(number):
-#    total/number
-#
-# def f2():
-#     print("Какой хороший день!")
-#     summ=0
-#     for i in range(-2,2,1):
-#         try:
-#             summ+=f1(i)
-#             print(summ)
-#         except ZeroDivisionError as exc:
-#             print(f"что-то пошло не так - {exc} но программа жива")
-#     return summ/0
-#
-# try:
-#     total=f2()
-#     print(f'вот ваш результат функции {total}')
-# except NameError as exc:
-#     print(f"внутри f2 что-то не так - {exc} но мы устояли")
-
 def personal_sum(numbers):
     try:
         result=0
