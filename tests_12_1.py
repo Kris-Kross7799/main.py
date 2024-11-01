@@ -3,6 +3,7 @@ import runner
 
 
 class RunnerTest(unittest.TestCase):
+
     def test_walk(self):
         obj = runner.Runner('example')
         for i in range(10):
@@ -20,7 +21,6 @@ class RunnerTest(unittest.TestCase):
         obj_2 = runner.Runner('example_2')
         for i in range(10):
             obj.walk()
-        for i in range(10):
             obj_2.run()
         self.assertNotEqual(obj.distance, obj_2.distance)
 
