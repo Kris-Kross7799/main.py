@@ -4,16 +4,19 @@ from pprint import pprint
 
 
 class TournamentTest(unittest.TestCase):
+    is_frozen=True
 
     @classmethod
     def setUpClass(cls):
         cls.all_results = {}
 
+    @unittest.skipIf(is_frozen==True, "Тесты в этом кейсе заморожены")
     def setUp(self):
         self.H = Runner_2.Runner('Huseyn', 10)
         self.A = Runner_2.Runner('Andrey', 9)
         self.N = Runner_2.Runner('Nic', 3)
 
+    @unittest.skipIf(is_frozen==True, "Тесты в этом кейсе заморожены")
     def test_run1(self):
         tour = Runner_2.Tournament(90, self.H, self.N)
         res = tour.start()
@@ -21,12 +24,14 @@ class TournamentTest(unittest.TestCase):
         self.assertTrue(res[last_number] == 'Nic', "Ошибка!")
         self.all_results['test_run1'] = res
 
+    @unittest.skipIf(is_frozen==True, "Тесты в этом кейсе заморожены")
     def test_run2(self):
         tour = Runner_2.Tournament(90, self.A, self.N)
         res = tour.start()
         self.assertTrue(res[max(res.keys())] == 'Nic', "Ошибка-2")
         self.all_results['test_run2'] = res
 
+    @unittest.skipIf('is_frozen'==True, "Тесты в этом кейсе заморожены")
     def test_run3(self):
         tour = Runner_2.Tournament(90, self.H, self.A, self.N)
         res = tour.start()
@@ -34,10 +39,24 @@ class TournamentTest(unittest.TestCase):
         self.assertTrue(res[lst] == 'Nic', "Ошибка-3")
         self.all_results['test_run3'] = res
 
+    # def test_run4(self):
+    #     tour=Runner_2.Tournament(6, self.H, self.A, self.N)
+    #     res = tour.start()
+    #     lst=max(res.keys())
+    #     self.assertTrue(res[lst] == 'Nic', 'Ошибка-4! Последним должен быть Nic')
+        self.all_results['test_run4'] = res
+
     @classmethod
     def tearDownClass(cls):
-        for i, elem in enumerate(cls.all_results):
-            print(f"{i+1}, {cls.all_results[elem]}")
+        for key, value in cls.all_results.items():
+            print(key, value)
+        # for i, elem in enumerate(cls.all_results):
+        #     print(f"{cls.all_results[elem]}")
+        # for r_key, r_value in cls.all_results.items():
+        #     for key, value in r_value.items():
+        #         print(r_key, key, value.name)
+
+
 
 
 
