@@ -1,0 +1,16 @@
+WARNING:root:Неверный тип данных для объекта Runner
+Traceback (most recent call last):
+  File "C:\Users\petro\PycharmProjects\pythonProject2\12_Юнит-тестирования\tests_12_4.py", line 23, in test_run
+    obj = Runner_3.Runner(True)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\petro\PycharmProjects\pythonProject2\12_Юнит-тестирования\Runner_3.py", line 6, in __init__
+    raise TypeError(f'Имя может быть только строкой, передано {type(name).__name__}')
+TypeError: Имя может быть только строкой, передано bool
+WARNING:root:Неверная скорость для Runner
+Traceback (most recent call last):
+  File "C:\Users\petro\PycharmProjects\pythonProject2\12_Юнит-тестирования\tests_12_4.py", line 12, in test_walk
+    obj = Runner_3.Runner('example', speed=-2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\petro\PycharmProjects\pythonProject2\12_Юнит-тестирования\Runner_3.py", line 11, in __init__
+    raise ValueError(f'Скорость не может быть отрицательной, сейчас {speed}')
+ValueError: Скорость не может быть отрицательной, сейчас -2
