@@ -3,7 +3,6 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton,
                            InlineKeyboardMarkup, InlineKeyboardButton)
-import os
 
 api = ""
 bot = Bot(token=api)
@@ -15,17 +14,17 @@ kb = ReplyKeyboardMarkup(
               [KeyboardButton(text="купить")]],
     resize_keyboard=True)
 
-ikb=InlineKeyboardMarkup(
-    inline_keyboard = [
-    [InlineKeyboardButton(text='Формулы рассчёта', callback_data='formulas'),
-     InlineKeyboardButton(text='Рассчитать норму калорий', callback_data='calories')]])
+ikb = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text='Формулы рассчёта', callback_data='formulas'),
+         InlineKeyboardButton(text='Рассчитать норму калорий', callback_data='calories')]])
 
 ikb_2 = InlineKeyboardMarkup(
-inline_keyboard=[
-    [InlineKeyboardButton(text='Product_1', callback_data='product_buying'),
-    InlineKeyboardButton(text='Product_2', callback_data='product_buying'),
-    InlineKeyboardButton(text='Product_3', callback_data='product_buying'),
-    InlineKeyboardButton(text='Product_4', callback_data='product_buying')]])
+    inline_keyboard=[
+        [InlineKeyboardButton(text='Product_1', callback_data='product_buying'),
+         InlineKeyboardButton(text='Product_2', callback_data='product_buying'),
+         InlineKeyboardButton(text='Product_3', callback_data='product_buying'),
+         InlineKeyboardButton(text='Product_4', callback_data='product_buying')]])
 
 
 class UserState(StatesGroup):
@@ -38,7 +37,7 @@ class UserState(StatesGroup):
 @dp.message_handler(commands=["start"])
 async def all_message(message):
     await message.answer("Привет, я - бот, помогающий Твоему здоровью!\n"
-                         "Выберите опцию", reply_markup=ikb)
+                         "Выберите опцию", reply_markup=kb)
 
 
 @dp.callback_query_handler(text="formulas")
@@ -55,12 +54,10 @@ async def set_age(call):
     await call.answer()
     await UserState.age.set()
 
+
 @dp.message_handler(text=['рассчитать'])
 async def set_age(message):
-    try:
-        await message.answer("ведите свой возраст")
-    except ValueError:
-        await message.answer("ведите число")
+    await message.answer("ведите свой возраст")
     await UserState.age.set()
 
 
@@ -69,7 +66,6 @@ async def set_growth(message, state):
     await state.update_data(age=float(message.text))
     await message.answer("Введите свой рост в см")
     await UserState.growth.set()
-
 
 
 @dp.message_handler(state=UserState.growth)
@@ -106,18 +102,25 @@ async def send_calories(message, state):
 async def info(message):
     await message.answer("Раздел в разработке...", reply_markup=kb)
 
+
 @dp.message_handler(text=["купить"])
 async def get_buying_list(message):
     for i in range(4):
-        with open (f'./({i+1}).png', 'rb') as img:
-            await message.answer_photo(img, f'Название: Product_{i+1},'
-                                        f'Описание: описание {i+1} Цена: {(i+1)*100}')
+        try:
+            with open(f'./({i + 1}).png', 'rb') as img:
+                await message.answer_photo(img, f'Название: Product_{i + 1},'
+                                                f' Описание: описание {i + 1}, Цена: {(i + 1) * 100}')
+        except FileNotFoundError:
+            await message.answer(f'No image. Название: Product_{i + 1}, Описание: '
+                                 f'описание {i + 1}, Цена: {(i + 1) * 100}')
     await message.answer("выберите продукт для покупки:", reply_markup=ikb_2)
+
 
 @dp.callback_query_handler(text="product_buying")
 async def send_confirm_message(call):
-    await call.message.answer('Вы успешно приебрели продукт!')
+    await call.message.answer('Вы успешно приобрели продукт!')
     # await call.answer()
+
 
 @dp.message_handler()
 async def start(message):
