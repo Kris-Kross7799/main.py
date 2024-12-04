@@ -11,15 +11,35 @@ description TEXT NOT NULL,
 price INTEGER)
 ''')
 
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Users(
+id INT PRIMARY KEY,
+user_name TEXT NOT NULL,
+email TEXT NOT NULL,
+age INT NOT NULL,
+balance INT NOT NULL)
+''')
 
-# for i in range(4):
-#     cursor.execute("INSERT INTO Products (title,description, price) VALUES(?,?,?)",(f"Продукт_{i+1}", f"Описание_{i+1}", f"{(i+1)*100}"))
-# cursor.execute("DELETE FROM Products")
+def is_included(user_name):
+    check_user = cursor.execute('SELECT * FROM Users WHERE user_name=?', (user_name,))
+    connection.commit()
+    # connection.close()
+    return check_user.fetchone() is not None
+
+def add_user(user_name, email, age, balance=1000):
+    cursor.execute(f"INSERT INTO Users (user_name, email, age, balance) VALUES(?,?,?,?)", (user_name, email, age, '1000'))
+    connection.commit()
+    # connection.close()
 
 def get_all_products():
-    cursor.execute('SELECT id, title,description,price FROM Products')
-    products=cursor.fetchall()
+    cursor.execute('SELECT * FROM Products')
+    products = cursor.fetchall()
+    connection.commit()
+    connection.close()
     return products
 
-connection.commit()
+
+# connection.commit()
 # connection.close()
+
+
